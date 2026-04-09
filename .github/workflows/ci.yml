@@ -1,5 +1,6 @@
 name: CI Pipeline
 
+# Trigger the workflow on push to main, PRs to main, and manual runs
 on:
   push:
     branches:
@@ -7,36 +8,45 @@ on:
   pull_request:
     branches:
       - main
-  workflow_dispatch:
+  workflow_dispatch:  # Allow manual trigger
 
 jobs:
   test:
+    # Runs on ubuntu-latest for a Linux environment with Docker support
     runs-on: ubuntu-latest
 
     steps:
+      # Checks out the code 
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # Set up pinned Python version 
       - name: Set up Python 3.12
         uses: actions/setup-python@v4
         with:
           python-version: '3.12'
 
+      # Install dependencies and linting tools
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r app/requirements.txt
           pip install flake8
 
+      # Runs a linter or code formatter
       - name: Lint with flake8
         run: |
           flake8 app/main.py --max-line-length=100
 
+      # Run unit tests to verify app behavior
+      # If tests fail, job stops here
       - name: Run tests
         run: |
           cd app
           python -m pytest test_main.py -v
 
+      # Build Docker image to verify containerization works
+      # Only runs if all previous steps passed
       - name: Build Docker image
         run: |
           cd app

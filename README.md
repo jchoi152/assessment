@@ -110,15 +110,13 @@ The Docker build step is skipped.
 ---
 
 ## What I learned
-- how to add simple FastAPI routes quickly
-- how to test API responses with `pytest` + `TestClient`
 - how to build and run the same app locally and in Docker
 - how to wire a basic CI pipeline in GitHub Actions
 
 ---
 
 ## What I would improve
-- upload test artifacts for easier debugging
+- lint whole app directory
 - add test coverage report in CI
 - test multiple Python versions
 - add image vulnerability scan
@@ -127,5 +125,5 @@ The Docker build step is skipped.
 ---
 
 ## AI usage
-I used AI for initial scaffolding and to clarify a few CI/CD concepts while building this.
+I used AI for initial scaffolding and to understand some CI/CD concepts while building this.
 I reviewed every file, ran tests and Docker locally, and manually changed code where needed.
